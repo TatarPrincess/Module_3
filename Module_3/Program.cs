@@ -5,12 +5,19 @@ class MainClass
     public static void Main(string[] args)
     {
 
-        string myName, hello, age;
-        myName = "\t My name is Ksusha \n";
-        hello = "\t Hello, world! \n";
-        age = "\t I'm 38";
+        string myName, myPet, myAge, myShoeSize;
 
-        Console.WriteLine(hello + myName + age);
+        const byte age = 38;
+        const bool havePet = true;
+        const float shoeSize = 37.5f;
+        const string name = "Ksusha";
+
+        myName = $"\t My name is {name}\n";
+        myAge = $"\t My age is {age} \n";
+        myPet = $"\t Do I have a pet? {havePet}\n";
+        myShoeSize = $"\t My shoe size is {shoeSize}";
+
+        Console.WriteLine(myName + myAge + myPet + myShoeSize);
 
         Console.ReadKey();
     }
