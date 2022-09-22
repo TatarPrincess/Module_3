@@ -2,23 +2,28 @@
 
 class MainClass
 {
+    enum DaysOfWeek : byte
+    {
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        Sunday = 7
+    };
+    
+
     public static void Main(string[] args)
     {
-
-        string myName, myPet, myAge, myShoeSize;
-
-        const byte age = 38;
-        const bool havePet = true;
-        const float shoeSize = 37.5f;
-        const string name = "Ksusha";
-
-        myName = $"\t My name is {name}\n";
-        myAge = $"\t My age is {age} \n";
-        myPet = $"\t Do I have a pet? {havePet}\n";
-        myShoeSize = $"\t My shoe size is {shoeSize}";
-
-        Console.WriteLine(myName + myAge + myPet + myShoeSize);
-
-        Console.ReadKey();
+        Console.WriteLine("Enter your name: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Enter your age: ");
+        byte age = Convert.ToByte(Console.ReadLine());
+        Console.WriteLine("Your name is {0} and your age is {1} ", name, age);
+        Console.WriteLine("What is your favorite day of week? ");
+        byte favDayAnswer = Convert.ToByte(Console.ReadLine());
+        string favDayAnswerStr = Enum.GetName(typeof(DaysOfWeek), favDayAnswer);
+        Console.WriteLine("Your favorite day is {0}", favDayAnswerStr);
     }
 }
