@@ -4,44 +4,27 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Цикл do");
-        int t = 0;
+        Console.WriteLine("Введите свое имя");
+        string name = Console.ReadLine();
+        
+        char [] letters =  new char [100];
+        int number = 0;
 
-        do
+        for (int i = 0; i < name.Length; i++)
         {
-            Console.WriteLine(t);
+            letters[i] = name[i];
+            number++;            
+        }
+        
+        string name_l = "";
+                
 
-            Console.WriteLine("Напишите свой любимый цвет на английском с маленькой буквы");
-            switch (Console.ReadLine())
-            {
-                case "red":
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.Black;
-
-                    Console.WriteLine("Your color is red!");
-                    break;
-
-                case "green":
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    Console.ForegroundColor = ConsoleColor.Black;
-
-                    Console.WriteLine("Your color is green!");
-                    break;
-                case "cyan":
-                    Console.BackgroundColor = ConsoleColor.Cyan;
-                    Console.ForegroundColor = ConsoleColor.Black;
-
-                    Console.WriteLine("Your color is cyan!");
-                    break;
-                default:
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    Console.ForegroundColor = ConsoleColor.Red;
-
-                    Console.WriteLine("Your color is yellow!");
-                    break;
-            }
-
-            t++;
-        } while (t < 3);
+        for (int i = number; i > 0; i--)
+        {
+            name_l = name_l + " " + letters[i-1];
+        }
+        
+        Console.WriteLine($"Ваше имя по буквам в обратном порядке:  {name_l}");
+        Console.WriteLine($"Первая буква вашего имени: {letters[0]}");
     }
 }
