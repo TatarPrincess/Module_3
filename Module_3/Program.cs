@@ -1,30 +1,19 @@
 ﻿using System;
+using System.ComponentModel;
 
 class MainClass
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Введите свое имя");
-        string name = Console.ReadLine();
-        
-        char [] letters =  new char [100];
-        int number = 0;
+        int[,] array = { { 1, 2, 3 }, { 5, 6, 7 }, { 8, 9, 10 }, { 11, 12, 13 } };
 
-        for (int i = 0; i < name.Length; i++)
+        for (int stl = 0; stl < array.GetUpperBound(1) + 1; stl++)
         {
-            letters[i] = name[i];
-            number++;            
+            for (int str = 0; str < array.GetUpperBound(0) + 1; str++)
+            {
+                Console.Write(array[str, stl] + " ");            
+            }
+            Console.WriteLine();
         }
-        
-        string name_l = "";
-                
-
-        for (int i = number; i > 0; i--)
-        {
-            name_l = name_l + " " + letters[i-1];
-        }
-        
-        Console.WriteLine($"Ваше имя по буквам в обратном порядке:  {name_l}");
-        Console.WriteLine($"Первая буква вашего имени: {letters[0]}");
     }
 }
