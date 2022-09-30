@@ -5,14 +5,22 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        var arr = new int[] { 5, 6, 9, 1, 2, 3, 4 };
-        int summa = 0;
+        int[] array = { 1, 2, -5, 8, 9, -6, -1, 77};
+        int quant = 0;
 
-        for (int i = 0; i < arr.Length; i++)
+        foreach (var num in array)
         {
-            summa = summa + arr[i];          
+            if (num > 0)
+            {
+                quant++;
+            }
+            else
+            {
+                continue;
+            }
         }
+        Console.WriteLine(quant);
+        
 
-        Console.WriteLine("Сумма элементов массива: {0}", summa);
     }
 }
