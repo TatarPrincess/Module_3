@@ -6,47 +6,57 @@ class MainClass
     public static void Main(string[] args)
     {
            (
-             int age,
-             bool havePet,
              string name,
-             float shoeSize
-            ) personalInfo;
+             string surname,
+             string login,
+             int loginLength,
+             bool hasPet,
+             int age,
+             string[] userColors
+            ) User;
 
-
+        for (int i = 0; i < 3; i++)
+        {
             Console.WriteLine("Enter your name: ");
-            personalInfo.name = Console.ReadLine();
+            User.name = Console.ReadLine();
 
-            Console.WriteLine("Enter your age: ");
-            personalInfo.age = Convert.ToByte(Console.ReadLine());
+            Console.WriteLine("Enter your surname: ");
+            User.surname = Console.ReadLine();
 
-            Console.WriteLine("Do you have a pet?: ");
+            Console.WriteLine("Enter your login: ");
+            User.login = Console.ReadLine();
 
-            if (Console.ReadLine() == "yes" 
-            | Console.ReadLine() == "да"
-            | Console.ReadLine() == "no" 
-            | Console.ReadLine() == "нет")
+            Console.WriteLine("Длина вашего логина: {0}", User.login.Length);
+
+            Console.WriteLine("У вас есть домашнее животное?");
+
+            if (Console.ReadLine() == "Да")
             {
-              personalInfo.havePet = true;             
+                User.hasPet = true;
             }
             else
             {
-              personalInfo.havePet = false;
+                User.hasPet = false;
             };
 
-            Console.WriteLine("What is your shoe size?: ");
-            personalInfo.shoeSize = float.Parse(Console.ReadLine());
+            Console.WriteLine("Введите ваш возраст: ");
+            User.age = Convert.ToByte(Console.ReadLine());
 
-            Console.WriteLine("Your name is {0} and your age is {1} ", personalInfo.name, personalInfo.age);
-            Console.WriteLine("Your shoe size is {0}", personalInfo.shoeSize);
-            if (personalInfo.havePet == true)
+            User.userColors = new string[3];
+            Console.WriteLine("Введите три любимых цвета пользователя");
+            User.userColors = Console.ReadLine().Split(' ');
+            foreach (string item in User.userColors)
             {
-             Console.WriteLine("You have a pet");
+                Console.WriteLine(item);
             }
-            else
-            { 
-             Console.WriteLine("You don't have a pet"); 
-            };
-            Console.ReadKey();
+        }
+            
+
+
+
+
+      
+        Console.ReadKey();
            
     }
 }
