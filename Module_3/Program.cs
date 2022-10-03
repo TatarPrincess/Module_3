@@ -5,30 +5,48 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        int[,] arr = { { -5, 6, 9, 1, 2, -3 }, { -8, 8, 1, 1, 2, -3 } };
-        int a = 0;
+           (
+             int age,
+             bool havePet,
+             string name,
+             float shoeSize
+            ) personalInfo;
 
-        for (int i = 0; i < arr.GetUpperBound(0) + 1; i++)   //перебираем строки 
-        {
-            for (int k = 0; k < arr.GetUpperBound(1) + 1; k++) //для каждой строки перебираем столбцы
+
+            Console.WriteLine("Enter your name: ");
+            personalInfo.name = Console.ReadLine();
+
+            Console.WriteLine("Enter your age: ");
+            personalInfo.age = Convert.ToByte(Console.ReadLine());
+
+            Console.WriteLine("Do you have a pet?: ");
+
+            if (Console.ReadLine() == "yes" 
+            | Console.ReadLine() == "да"
+            | Console.ReadLine() == "no" 
+            | Console.ReadLine() == "нет")
             {
-                for (int m = k+1; m < arr.GetUpperBound(1) + 1; m++)
-                {
-                    if (arr[i, k] > arr[i, m])
-                    {
-                        a = arr[i, k];
-                        arr[i, k] = arr[i, m];
-                        arr[i, m] = a;
-                        
-                    }
-                    else { continue; }
-                    
-
-                }
-                Console.Write(arr[i,k] + "  ");
+              personalInfo.havePet = true;             
             }
-            Console.WriteLine();
-        }     
-        
+            else
+            {
+              personalInfo.havePet = false;
+            };
+
+            Console.WriteLine("What is your shoe size?: ");
+            personalInfo.shoeSize = float.Parse(Console.ReadLine());
+
+            Console.WriteLine("Your name is {0} and your age is {1} ", personalInfo.name, personalInfo.age);
+            Console.WriteLine("Your shoe size is {0}", personalInfo.shoeSize);
+            if (personalInfo.havePet == true)
+            {
+             Console.WriteLine("You have a pet");
+            }
+            else
+            { 
+             Console.WriteLine("You don't have a pet"); 
+            };
+            Console.ReadKey();
+           
     }
 }
