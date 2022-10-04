@@ -6,20 +6,12 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        var arr = getArrayFromConsole();
-        var sortedArr = sortArray(arr);
-        
-        
-        foreach (var item in sortedArr)
-        {
-            Console.WriteLine(item);
-        };
-
-
+        var arr = getArrayFromConsole(3);
+        showArray(arr); 
     }
-    static int[] getArrayFromConsole()
+    static int[] getArrayFromConsole(int num = 5)
     {
-        var result = new int[5];
+        var result = new int[num];
         for (int i = 0; i < result.Length; i++)
         {
             Console.WriteLine("Введите элемент массива номер {0}", i+1);
@@ -45,6 +37,21 @@ class MainClass
             }
         }
         return array;
+    }
+    static void showArray(int[] arr, bool attr = false) 
+    {
+        int [] arrayToShow = arr;
+        
+        if (attr == true)
+        {
+            sortArray(arrayToShow);
+        }
+
+        foreach (var item in arrayToShow)
+        {
+            Console.WriteLine(item);
+        };
+
     }
 
 }
