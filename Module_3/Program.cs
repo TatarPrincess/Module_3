@@ -7,23 +7,10 @@ class MainClass
     public static void Main(string[] args)
     {
         var arr = getArrayFromConsole();
-        var b = 0;
+        var sortedArr = sortArray(arr);
         
-        for (int x = 0; x < arr.Length; x++)
-        {
-            for (int y = x + 1; y < arr.Length; y++)
-            {
-                if (arr[x] > arr[y])
-                {
-                    b = arr[x];
-                    arr[x] = arr[y];
-                    arr[y] = b;
-                }
-                else continue;
-            }
-        }
         
-        foreach (var item in arr)
+        foreach (var item in sortedArr)
         {
             Console.WriteLine(item);
         };
@@ -39,6 +26,25 @@ class MainClass
             result[i] = Convert.ToInt32(Console.ReadLine());
         }
         return result;
+    }
+    static int[] sortArray(int[] array)
+    {
+        var b = 0;
+
+        for (int x = 0; x < array.Length; x++)
+        {
+            for (int y = x + 1; y < array.Length; y++)
+            {
+                if (array[x] > array[y])
+                {
+                    b = array[x];
+                    array[x] = array[y];
+                    array[y] = b;
+                }
+                else continue;
+            }
+        }
+        return array;
     }
 
 }
