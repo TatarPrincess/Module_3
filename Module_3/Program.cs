@@ -1,62 +1,44 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 
 class MainClass
 {
     public static void Main(string[] args)
     {
-           (
-             string name,
-             string surname,
-             string login,
-             int loginLength,
-             bool hasPet,
-             int age,
-             string[] userColors
-            ) User;
-
-        for (int i = 0; i < 3; i++)
+        var arr = getArrayFromConsole();
+        var b = 0;
+        
+        for (int x = 0; x < arr.Length; x++)
         {
-            Console.WriteLine("Enter your name: ");
-            User.name = Console.ReadLine();
-
-            Console.WriteLine("Enter your surname: ");
-            User.surname = Console.ReadLine();
-
-            Console.WriteLine("Enter your login: ");
-            User.login = Console.ReadLine();
-
-            Console.WriteLine("Длина вашего логина: {0}", User.login.Length);
-
-            Console.WriteLine("У вас есть домашнее животное?");
-
-            if (Console.ReadLine() == "Да")
+            for (int y = x + 1; y < arr.Length; y++)
             {
-                User.hasPet = true;
-            }
-            else
-            {
-                User.hasPet = false;
-            };
-
-            Console.WriteLine("Введите ваш возраст: ");
-            User.age = Convert.ToByte(Console.ReadLine());
-
-            User.userColors = new string[3];
-            Console.WriteLine("Введите три любимых цвета пользователя");
-            User.userColors = Console.ReadLine().Split(' ');
-            foreach (string item in User.userColors)
-            {
-                Console.WriteLine(item);
+                if (arr[x] > arr[y])
+                {
+                    b = arr[x];
+                    arr[x] = arr[y];
+                    arr[y] = b;
+                }
+                else continue;
             }
         }
-            
+        
+        foreach (var item in arr)
+        {
+            Console.WriteLine(item);
+        };
 
 
-
-
-      
-        Console.ReadKey();
-           
     }
+    static int[] getArrayFromConsole()
+    {
+        var result = new int[5];
+        for (int i = 0; i < result.Length; i++)
+        {
+            Console.WriteLine("Введите элемент массива номер {0}", i+1);
+            result[i] = Convert.ToInt32(Console.ReadLine());
+        }
+        return result;
+    }
+
 }
