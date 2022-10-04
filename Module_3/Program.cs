@@ -4,41 +4,57 @@ using System.Drawing;
 
 class MainClass
 {
+    static void ShowColor(string name)
+    {
+        Console.WriteLine("{0}, \n напишите свой любимый цвет на английском с маленькой буквы", name);
+        var color = Console.ReadLine();
+
+        switch (color)
+        {
+            case "red":
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+
+                Console.WriteLine("{0}, your color is red!", name);
+                break;
+
+            case "green":
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
+
+                Console.WriteLine("{0}, your color is green!", name);
+                break;
+            case "cyan":
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Black;
+
+                Console.WriteLine("{0}, your color is cyan!", name);
+                break;
+            default:
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                Console.WriteLine("{0}, your color is yellow!", name);
+                break;
+        }
+    }
+
     public static void Main(string[] args)
     {
-        var arr = getArrayFromConsole();
-        var b = 0;
-        
-        for (int x = 0; x < arr.Length; x++)
-        {
-            for (int y = x + 1; y < arr.Length; y++)
-            {
-                if (arr[x] > arr[y])
-                {
-                    b = arr[x];
-                    arr[x] = arr[y];
-                    arr[y] = b;
-                }
-                else continue;
-            }
-        }
-        
-        foreach (var item in arr)
-        {
-            Console.WriteLine(item);
-        };
+
+        var (name, age) = ("Евгения", 27);
+
+        Console.Write("Введите имя: ");
+        name = Console.ReadLine();
+        Console.Write("Введите возраст с цифрами:");
+        age = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Ваше имя: {0}", name);
+        Console.WriteLine("Ваш возраст: {0}", age);
+
+        ShowColor(name);
 
 
-    }
-    static int[] getArrayFromConsole()
-    {
-        var result = new int[5];
-        for (int i = 0; i < result.Length; i++)
-        {
-            Console.WriteLine("Введите элемент массива номер {0}", i+1);
-            result[i] = Convert.ToInt32(Console.ReadLine());
-        }
-        return result;
     }
 
 }
