@@ -27,9 +27,10 @@ class MainClass
         }
         return result;
     }
-    static int[] sortArray(int[] array)
+    static int[] sortArray(string name, params int[] array)
     {
         var b = 0;
+        Console.WriteLine(name);
 
         for (int x = 0; x < array.Length; x++)
         {
