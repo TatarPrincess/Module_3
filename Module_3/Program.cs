@@ -6,20 +6,27 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        var arr = getArrayFromConsole();
-        var sortedArr = sortArray(arr);
-        
-        
-        foreach (var item in sortedArr)
+        int size = 3;
+        var arr = getArrayFromConsole(ref size);
+        Console.WriteLine();
+        sortArray(out int[] sorteddesc, out int[] sortedasc, arr);
+
+        foreach (int item in sorteddesc)
         {
-            Console.WriteLine(item);
-        };
+            Console.Write(item + " ");
+        }
 
+        Console.WriteLine();
 
+        foreach (int item in sortedasc)
+        {
+            Console.Write(item + " ");
+        }
     }
-    static int[] getArrayFromConsole()
+    static int[] getArrayFromConsole(ref int size)
     {
-        var result = new int[5];
+        size += 3;
+        var result = new int[size];
         for (int i = 0; i < result.Length; i++)
         {
             Console.WriteLine("Введите элемент массива номер {0}", i+1);
@@ -27,10 +34,15 @@ class MainClass
         }
         return result;
     }
-    static int[] sortArray(string name, params int[] array)
+    static void sortArray(out int[] sorteddesc, out int[] sortedasc, in int[] array)
     {
-        var b = 0;
-        Console.WriteLine(name);
+        sorteddesc = sortArrayDesc(array);
+        sortedasc = sortArrayAsc(array);
+              
+    }
+    static int[] sortArrayAsc(in int[] array)
+    {
+        var b = 0;        
 
         for (int x = 0; x < array.Length; x++)
         {
@@ -45,7 +57,43 @@ class MainClass
                 else continue;
             }
         }
-        return array;
+
+        int[] arraySortedAsc = new int[6];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            arraySortedAsc[i] = array[i];        
+        }
+
+        return arraySortedAsc;
     }
 
+    static int[] sortArrayDesc(in int[] array)
+    {
+        var b = 0;
+
+        for (int x = 0; x < array.Length; x++)
+        {
+            for (int y = x + 1; y < array.Length; y++)
+            {
+                if (array[x] < array[y])
+                {
+                    b = array[x];
+                    array[x] = array[y];
+                    array[y] = b;
+                }
+                else continue;
+            }
+        }
+
+        int[] arraySortedDesc = new int[6];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            arraySortedDesc[i] = array[i];
+        }
+
+        return arraySortedDesc;
+
+    }
 }
