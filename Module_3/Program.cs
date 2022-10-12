@@ -2,98 +2,217 @@
 using System.ComponentModel;
 using System.Drawing;
 
-class MainClass
+class Programm
 {
     public static void Main(string[] args)
     {
-        int size = 3;
-        var arr = getArrayFromConsole(ref size);
-        Console.WriteLine();
-        sortArray(out int[] sorteddesc, out int[] sortedasc, arr);
+        (string name,
+         string surname,
+         int age,
+         bool hasPet,
+         int petQuant,
+         string[] petNames,
+         string[] favColors) anketa;
 
-        foreach (int item in sorteddesc)
-        {
-            Console.Write(item + " ");
+        string [] getPetNameArray (int quant)
+        {            
+           Console.WriteLine("Перечислите имена питомцев через запятую ");
+           string answer = Console.ReadLine();
+           string [] arr = new string[quant];
+           return answer.Split(',');             
+            
         }
 
-        Console.WriteLine();
-
-        foreach (int item in sortedasc)
+        string[] getfavColors(int quant)
         {
-            Console.Write(item + " ");
-        }
-    }
-    static int[] getArrayFromConsole(ref int size)
-    {
-        size += 3;
-        var result = new int[size];
-        for (int i = 0; i < result.Length; i++)
-        {
-            Console.WriteLine("Введите элемент массива номер {0}", i+1);
-            result[i] = Convert.ToInt32(Console.ReadLine());
-        }
-        return result;
-    }
-    static void sortArray(out int[] sorteddesc, out int[] sortedasc, in int[] array)
-    {
-        sorteddesc = sortArrayDesc(array);
-        sortedasc = sortArrayAsc(array);
-              
-    }
-    static int[] sortArrayAsc(in int[] array)
-    {
-        var b = 0;        
-
-        for (int x = 0; x < array.Length; x++)
-        {
-            for (int y = x + 1; y < array.Length; y++)
+            if (quant > 0)
             {
-                if (array[x] > array[y])
-                {
-                    b = array[x];
-                    array[x] = array[y];
-                    array[y] = b;
-                }
-                else continue;
+                Console.WriteLine("Перечислите любимые цвета через запятую ");
+                string answerColor = Console.ReadLine();
+                anketa.favColors = new string[quant];
+                return answerColor.Split(','); ;
             }
-        }
-
-        int[] arraySortedAsc = new int[6];
-
-        for (int i = 0; i < array.Length; i++)
-        {
-            arraySortedAsc[i] = array[i];        
-        }
-
-        return arraySortedAsc;
-    }
-
-    static int[] sortArrayDesc(in int[] array)
-    {
-        var b = 0;
-
-        for (int x = 0; x < array.Length; x++)
-        {
-            for (int y = x + 1; y < array.Length; y++)
+            else
             {
-                if (array[x] < array[y])
-                {
-                    b = array[x];
-                    array[x] = array[y];
-                    array[y] = b;
-                }
-                else continue;
+                var emptyArr = new string[] {""};
+                return emptyArr;
             }
+           
         }
 
-        int[] arraySortedDesc = new int[6];
-
-        for (int i = 0; i < array.Length; i++)
+        bool isCorrectInput(string input, string type)
         {
-            arraySortedDesc[i] = array[i];
+            int tmp;
+            if (!int.TryParse(input, out tmp)) return false;
+
+            switch (type)
+            {
+                case "age":
+                    {
+                        if (tmp > 0 && tmp < 110) return true;
+                        else return false;                        
+                    }
+                    
+                case "pet":
+                    {
+                        if (tmp > 0) return true;
+                        else return false;
+                    }
+                    
+                case "color":
+                    {
+                        if (tmp >= 0) return true;
+                        else return false;
+                    }
+                    
+                default: return false;
+            }
+            
+            
         }
 
-        return arraySortedDesc;
+        void getName ()
+        {
+            Console.WriteLine("Ведите свое имя");
+            string myName = Console.ReadLine();
+            if (myName.Length > 0)
+            {
+                anketa.name = myName;
+            }
+            else
+            {
+                Console.WriteLine("Не верно введено имя");
+                getName();
+            } 
+        };
 
+        void getSurName()
+        {
+            Console.WriteLine("Ведите свою фамилию");
+            string mySurName = Console.ReadLine();
+            if (mySurName.Length > 0)
+            {
+                anketa.surname = mySurName;
+            }
+            else
+            {
+                Console.WriteLine("Не верно введена фамилия");
+                getSurName();
+
+            } 
+        };
+
+        void getAge()
+        {
+            Console.WriteLine("Ведите свой возраст");
+            string myAge = Console.ReadLine();
+
+            if (isCorrectInput(myAge, "age"))
+            {
+                anketa.age = Int32.Parse(myAge);                
+            }
+            else
+            {
+                Console.WriteLine("Не верно введен возраст");
+                getAge();
+            } 
+        };
+
+        void getPetInfo()
+        {
+            Console.WriteLine("Есть ли у вас питомец? (ответьте да или нет)");
+            string havePet = Console.ReadLine();
+            anketa.petQuant = 0;
+            anketa.petNames = null;
+
+            switch (havePet)
+            {
+                case "да":
+                    {
+                        anketa.hasPet = true;
+                        Console.WriteLine("Сколько у вас питомцев? ");
+                        string myPetQuant = Console.ReadLine();
+                        if (isCorrectInput(myPetQuant, "pet"))
+                        {
+                            anketa.petQuant = Int32.Parse(myPetQuant);
+                            
+                        }
+
+                        if (anketa.petQuant > 0)
+                        {
+                            anketa.petNames = getPetNameArray(anketa.petQuant);
+                        }
+                        break;
+                    }
+                case "нет":
+                    {
+                        anketa.hasPet = false;
+                        anketa.petQuant = 0;
+                        break;
+                    }  
+                default:
+                    {
+                        Console.WriteLine("Не верный ответ на вопрос. Есть ли у вас питомцы?");
+                        getPetInfo();
+                        break;
+                    } 
+            }
+        };
+
+        void getColorInfo()
+        {
+            Console.WriteLine("Введите количество любимых цветов");
+            string myColorQuant = Console.ReadLine();
+
+            if (isCorrectInput(myColorQuant, "color"))
+            {
+                anketa.favColors = getfavColors(int.Parse(myColorQuant));
+            }
+            else 
+            {
+                Console.WriteLine("Не верный ответ на вопрос. Введите количество любимых цветов?");
+                getColorInfo();
+            }
+            
+        };
+
+        (string name, string surname, int age, bool hasPet, int petQuant, string[] petNames, string[] favColors) fillAnketa()
+        {
+            getName();
+            getSurName();
+            getAge();
+            getPetInfo();
+            getColorInfo();
+            return anketa;
+        };
+
+        void showAnketa((string name, string surname, int age, bool hasPet, int petQuant, string[] petNames, string[] favColors) myAnketa)
+        {
+            Console.WriteLine("Ваше имя: {0}", myAnketa.name);
+            Console.WriteLine("Ваша фамилия: {0}", myAnketa.surname);
+            Console.WriteLine("Ваш возраст: {0}", myAnketa.age);
+            string myHasPet;
+            if (myAnketa.hasPet == true)
+            {
+                myHasPet = "Да"; 
+            } else myHasPet = "Нет";
+            Console.WriteLine("Есть ли у вас домашние животные: {0}", myHasPet);
+            Console.WriteLine("Клички домашних животных в количестве {0}: ", anketa.petQuant);
+            foreach (string item in myAnketa.petNames)
+            {
+                Console.WriteLine(item + ""); 
+            }
+            Console.WriteLine("Ваши любимые цвета: ");
+            foreach (string item in myAnketa.favColors)
+            {
+                Console.WriteLine(item + "");
+            }
+        };
+
+        showAnketa(fillAnketa());
+        
     }
+
+
+
 }
