@@ -7,87 +7,43 @@ class Programm
 {
     static void Main(string[] args)
     {
-        //var department = GetCurrentDepartment();
-        Console.WriteLine("введите количество пассажиров");
-        int result;
-        int.TryParse(Console.ReadLine(), out result);
-        int? quant = result;
-        if (result <= 0) quant = null;
-        Bus bus = new Bus(quant);
+        var arr = new int[] { 1, 2, 3, 4 };
+        IndexingClass myClass = new IndexingClass(arr);
+        Console.WriteLine("Третий элемент: {0}", myClass[3]);
+        Console.WriteLine("Пятый элемент: {0}", myClass[5]);
+        myClass[0] = 190;
+        Console.WriteLine("Первый элемент: {0}", myClass[0]);
+    }    
 
-        bus.PrintStatus();
+}
+
+class IndexingClass
+{
+    private int[] array;
+
+    public IndexingClass(int[] array)
+    {
+        this.array = array;
     }
 
-    static Department GetCurrentDepartment()
+    public int this [int index]
     {
-        Console.WriteLine("Введите название города");
-        City city = new City(Console.ReadLine());
-        Console.WriteLine("Введите тип компании");
-        string compType = Console.ReadLine();
-        Console.WriteLine("Введите имя компании");
-        string compName = Console.ReadLine();
-        Company company = new Company(compType, compName);
-
-        if (company.Type == "Банк" && city.Name == "Санкт-Петербург")
-        {
-            Console.WriteLine("У банка {0} есть отделение в Санкт-Петербурге", company.Name);
+        set {
+            if (index >= 0 && index < array.Length)
+            {
+                array[index] = value;
+            }
         }
-        else Console.WriteLine("ничего");
-
-        return new Department(company, city);
-    }
-
-}
-class Bus
-{
-    public int? Load;
-    public Bus(int? load)
-    {
-        Load = load;
-    }
-
-    public void PrintStatus()
-    {
-        if (Load != null)
-        {
-            Console.WriteLine("Количество пассажиров - {0}", Load);
+        get {
+            if (index >= 0 && index < array.Length)
+            {
+                return array[index];
+            }
+            else return -1;
         }
-        else Console.WriteLine("Автобус пуст");
-
-    }
-}
-class Company
-{
-    public string Type;
-    public string Name;
-    public Company(string type, string name = "Неизвестная компания")
-    {
-        Type = type;
-        Name = name;
     }
 }
 
-class City
-{
-    public string Name;
-    public City(string name)
-    {
-        Name = name;    
-    }
-}
 
-class Department
-{
-    public Company Company;
-    public City City;
 
-    public Department(Company compData, City cityData)
-    {
-        Company = compData;
-        City = cityData;
-    }
-
-    
-
-}
 
