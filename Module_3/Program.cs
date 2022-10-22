@@ -7,87 +7,54 @@ class Programm
 {
     static void Main(string[] args)
     {
-        //var department = GetCurrentDepartment();
-        Console.WriteLine("введите количество пассажиров");
-        int result;
-        int.TryParse(Console.ReadLine(), out result);
-        int? quant = result;
-        if (result <= 0) quant = null;
-        Bus bus = new Bus(quant);
-
-        bus.PrintStatus();
     }
 
-    static Department GetCurrentDepartment()
+    abstract class ComputerPart
     {
-        Console.WriteLine("Введите название города");
-        City city = new City(Console.ReadLine());
-        Console.WriteLine("Введите тип компании");
-        string compType = Console.ReadLine();
-        Console.WriteLine("Введите имя компании");
-        string compName = Console.ReadLine();
-        Company company = new Company(compType, compName);
-
-        if (company.Type == "Банк" && city.Name == "Санкт-Петербург")
+        private string name;
+        public ComputerPart(string name)
         {
-            Console.WriteLine("У банка {0} есть отделение в Санкт-Петербурге", company.Name);
+            this.name = name;
         }
-        else Console.WriteLine("ничего");
 
-        return new Department(company, city);
+        abstract public void Work();
     }
 
-}
-class Bus
-{
-    public int? Load;
-    public Bus(int? load)
+    class Processor : ComputerPart 
     {
-        Load = load;
-    }
-
-    public void PrintStatus()
-    {
-        if (Load != null)
+        public Processor() : base("Процессор 1")
+        { 
+         
+        }
+        public override void Work()
         {
-            Console.WriteLine("Количество пассажиров - {0}", Load);
+            Console.WriteLine("Работа процессора");
         }
-        else Console.WriteLine("Автобус пуст");
 
     }
-}
-class Company
-{
-    public string Type;
-    public string Name;
-    public Company(string type, string name = "Неизвестная компания")
+    class MotherBoard : ComputerPart
     {
-        Type = type;
-        Name = name;
-    }
-}
+        public MotherBoard() : base("MotherBoard 1")
+        {
 
-class City
-{
-    public string Name;
-    public City(string name)
+        }
+        public override void Work()
+        {
+            Console.WriteLine("Работа MotherBoard");
+        }
+
+    }
+    class GraphicCard : ComputerPart
     {
-        Name = name;    
+        public GraphicCard() : base("GraphicCard 1")
+        {
+
+        }
+        public override void Work()
+        {
+            Console.WriteLine("Работа GraphicCard");
+        }
+
     }
-}
-
-class Department
-{
-    public Company Company;
-    public City City;
-
-    public Department(Company compData, City cityData)
-    {
-        Company = compData;
-        City = cityData;
-    }
-
-    
-
 }
 
