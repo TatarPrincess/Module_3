@@ -2,92 +2,40 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 class Programm
 {
+    
     static void Main(string[] args)
     {
-        //var department = GetCurrentDepartment();
-        Console.WriteLine("введите количество пассажиров");
-        int result;
-        int.TryParse(Console.ReadLine(), out result);
-        int? quant = result;
-        if (result <= 0) quant = null;
-        Bus bus = new Bus(quant);
+        Console.WriteLine(IntExtension.GetNegative(-5));
+        Console.WriteLine(IntExtension.GetNegative(8));
+        Console.WriteLine(IntExtension.GetPositive(3));
+        Console.WriteLine(IntExtension.GetPositive(-6));
 
-        bus.PrintStatus();
     }
 
-    static Department GetCurrentDepartment()
+    public class IntExtension
     {
-        Console.WriteLine("Введите название города");
-        City city = new City(Console.ReadLine());
-        Console.WriteLine("Введите тип компании");
-        string compType = Console.ReadLine();
-        Console.WriteLine("Введите имя компании");
-        string compName = Console.ReadLine();
-        Company company = new Company(compType, compName);
-
-        if (company.Type == "Банк" && city.Name == "Санкт-Петербург")
+        public static int GetNegative(int a)
         {
-            Console.WriteLine("У банка {0} есть отделение в Санкт-Петербурге", company.Name);
+            int A = a;
+            A = (a <= 0) ? a : -a;
+
+            return A;
+           
         }
-        else Console.WriteLine("ничего");
 
-        return new Department(company, city);
-    }
-
-}
-class Bus
-{
-    public int? Load;
-    public Bus(int? load)
-    {
-        Load = load;
-    }
-
-    public void PrintStatus()
-    {
-        if (Load != null)
+        public static int GetPositive(int a)
         {
-            Console.WriteLine("Количество пассажиров - {0}", Load);
+            int A = a;
+            A = (a >= 0) ? a : -a;
+
+            return A;
+
         }
-        else Console.WriteLine("Автобус пуст");
-
     }
-}
-class Company
-{
-    public string Type;
-    public string Name;
-    public Company(string type, string name = "Неизвестная компания")
-    {
-        Type = type;
-        Name = name;
-    }
-}
-
-class City
-{
-    public string Name;
-    public City(string name)
-    {
-        Name = name;    
-    }
-}
-
-class Department
-{
-    public Company Company;
-    public City City;
-
-    public Department(Company compData, City cityData)
-    {
-        Company = compData;
-        City = cityData;
-    }
-
-    
 
 }
 
