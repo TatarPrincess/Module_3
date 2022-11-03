@@ -5,19 +5,30 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
-using static Programm;
 
-class Programm
+
+static class CashPaymentExtensions
+{
+    public static void PaymentByInstalments(this CashPayment cashPayment)
+    {
+        Console.WriteLine("Выбрана оплата в рассрочку");
+
+    }
+}
+
+class Programme
 {
     static void Main(string[] args)
     {
         ProductList pList = new ProductList();
-        string[] authors = {"Артур Конан Дойль", "Агата Кристи", "Джеймс Хедли Чейз"};
+        string[] authors = { "Артур Конан Дойль", "Агата Кристи", "Джеймс Хедли Чейз" };
         Product productBought = pList[authors[new Random().Next(0, 2)], new Random().Next(0, 3)];
         Order order = new Order(productBought);
-        Console.WriteLine("Ваш заказ: \n #{0} от {1} \n на покупку книги \"{2}\" в количестве {3} по цене {4} рублей",            
+        Console.WriteLine("Ваш заказ: \n #{0} от {1} \n на покупку книги \"{2}\" в количестве {3} по цене {4} рублей",
             order.number, order.date, productBought.Name, productBought.Quantity, productBought.Price);
     }
+}
+    
 
 class Order 
 {
@@ -50,7 +61,8 @@ class Order
             }
             else if (answer == "3")
             {
-                CashPaymentExtensions.PaymentByInstalments();
+              CashPayment cashPayment = new CashPayment();
+              cashPayment.PaymentByInstalments();
             }
             else Console.WriteLine("Введен не верный тип оплаты");
 
@@ -320,14 +332,7 @@ public class CashPayment : Payment
     }
 }
 
-    public static class CashPaymentExtensions
-    {
-        public static void PaymentByInstalments()
-        {
-            Console.WriteLine("Выбрана оплата в рассрочку"); 
 
-        }        
-    }
 
 
     public class Product
@@ -420,4 +425,3 @@ public class ProductList
     }
  }
      
-}
