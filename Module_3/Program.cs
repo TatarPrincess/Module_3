@@ -10,37 +10,40 @@ using System.Xml.Linq;
 
 namespace DelegatePractices
 {
-    class Program
+    public class User
     {
-        public delegate Car carHandler();
-        static void Main(string[] args)
-        {
-            Lexus lexus = new Lexus("12345");
-            carHandler carHandler = lexus.getCarInfo;
-            Console.WriteLine(carHandler.Invoke().smth);
 
+    }
+
+    public class Account : User
+    {
+
+    }
+
+    public interface IUpdater<in T>
+    {
+        public void Update(T entity);
+    }
+
+    public class UserService : IUpdater <User>
+    {
+
+        public void Update(User user)
+        {
+            Console.WriteLine(user);
         }
     }
 
-    class Car 
+    class Program 
     {
-        public string smth;
-        public Car(string smth)
-        { 
-          this.smth = smth;
-        }
-    }
-    class Lexus : Car 
-    {
-        
-        public Lexus(string smth) : base(smth)
+        public static void Main(string[] args)
         {
+
+            IUpdater<User> user = new UserService();
+            IUpdater<Account> account = new UserService();
             
-        }
-
-        public Lexus getCarInfo()
-        {
-           return this;
+            user.Update(new User());
+            account.Update(new Account());
         }
     }
 
